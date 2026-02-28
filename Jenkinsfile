@@ -783,4 +783,31 @@ pipeline {
         }
 
     }
+
+    post {
+        success {
+            script {
+                step([$class: 'GitHubCommitStatusSetter',
+                      reposSource: [$class: 'ManuallyEnteredRepositorySource', url: env.GIT_URL],
+                      statusResultSource: [$class: 'ConditionalStatusResultSource',
+                          results: [
+                              [$class: 'AnyBuildResult', message: 'Build successful', state: 'SUCCESS']
+                          ]
+                      ]
+                ])
+            }
+        }
+        failure {
+            script {
+                step([$class: 'GitHubCommitStatusSetter',
+                      reposSource: [$class: 'ManuallyEnteredRepositorySource', url: env.GIT_URL],
+                      statusResultSource: [$class: 'ConditionalStatusResultSource',
+                          results: [
+                              [$class: 'AnyBuildResult', message: 'Build failed', state: 'FAILURE']
+                          ]
+                      ]
+                ])
+            }
+        }
+    }
 }
