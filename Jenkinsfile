@@ -3,19 +3,13 @@ pipeline {
 
     stages {
 
-        // ====================================================================
-        // JAVA BACKEND SERVICES (Maven + mvnw)
-        // Mỗi service có 2 phase: Test (JUnit + JaCoCo) và Build (package JAR)
-        // changeset giúp Multibranch Pipeline chỉ trigger service có thay đổi
-        // Khi common-library/, pom.xml hoặc checkstyle/ thay đổi → trigger TẤT CẢ
-        // ====================================================================
 
         stage('Product Service') {
             when {
                 anyOf {
                     changeset "product/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -55,7 +49,7 @@ pipeline {
                 anyOf {
                     changeset "cart/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -95,7 +89,7 @@ pipeline {
                 anyOf {
                     changeset "customer/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -135,7 +129,7 @@ pipeline {
                 anyOf {
                     changeset "inventory/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -175,7 +169,7 @@ pipeline {
                 anyOf {
                     changeset "location/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -215,7 +209,7 @@ pipeline {
                 anyOf {
                     changeset "media/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -255,7 +249,7 @@ pipeline {
                 anyOf {
                     changeset "order/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -295,7 +289,7 @@ pipeline {
                 anyOf {
                     changeset "payment/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -335,7 +329,7 @@ pipeline {
                 anyOf {
                     changeset "payment-paypal/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -375,7 +369,7 @@ pipeline {
                 anyOf {
                     changeset "promotion/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -415,7 +409,7 @@ pipeline {
                 anyOf {
                     changeset "rating/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -455,7 +449,7 @@ pipeline {
                 anyOf {
                     changeset "search/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -495,7 +489,7 @@ pipeline {
                 anyOf {
                     changeset "tax/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -535,7 +529,7 @@ pipeline {
                 anyOf {
                     changeset "webhook/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -575,7 +569,7 @@ pipeline {
                 anyOf {
                     changeset "sampledata/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -619,7 +613,7 @@ pipeline {
                 anyOf {
                     changeset "backoffice-bff/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -659,7 +653,7 @@ pipeline {
                 anyOf {
                     changeset "storefront-bff/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
@@ -703,7 +697,7 @@ pipeline {
                 anyOf {
                     changeset "recommendation/**"
                     changeset "common-library/**"
-                    changeset glob: 'pom.xml'
+                    changeset "pom.xml"
                     changeset "checkstyle/**"
                 }
             }
