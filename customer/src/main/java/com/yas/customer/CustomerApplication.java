@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties({ServiceUrlConfig.class, CorsConfig.class})
 public class CustomerApplication {
 
+    // CI test: verify Jenkins changeset detection for customer service
     public static void main(String[] args) {
         SpringApplication.run(CustomerApplication.class, args);
     }
