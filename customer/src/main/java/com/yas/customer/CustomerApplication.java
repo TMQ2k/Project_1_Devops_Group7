@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class CustomerApplication {
 
     // CI test: verify Jenkins changeset detection for customer service
+    // CI test: verify Jenkins changeset detection for customer service - added a comment to trigger changeset detection
     public static void main(String[] args) {
         SpringApplication.run(CustomerApplication.class, args);
     }
