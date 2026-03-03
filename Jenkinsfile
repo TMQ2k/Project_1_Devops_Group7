@@ -704,7 +704,7 @@ pipeline {
             stages {
                 stage('Test Recommendation') {
                     steps {
-                        dir('product') {
+                        dir('recommendation') {
                             sh 'chmod +x ./mvnw'
                             sh './mvnw -f ../pom.xml clean test -pl recommendation -am -Dmaven.test.failure.ignore=true'
                         }
@@ -723,9 +723,88 @@ pipeline {
                 }
                 stage('Build Recommendation') {
                     steps {
-                        dir('product') {
+                        dir('recommendation') {
                             sh 'chmod +x ./mvnw'
                             sh './mvnw -f ../pom.xml clean package -pl recommendation -am -DskipTests'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Delivery Service') {
+            when {
+                anyOf {
+                    changeset "delivery/**"
+                    changeset "common-library/**"
+                    changeset "pom.xml"
+                    changeset "checkstyle/**"
+                }
+            }
+            stages {
+                stage('Test Delivery') {
+                    steps {
+                        dir('delivery') {
+                            sh 'chmod +x ./mvnw'
+                            sh './mvnw -f ../pom.xml clean test -pl delivery -am -Dmaven.test.failure.ignore=true'
+                        }
+                    }
+                    post {
+                        always {
+                            junit testResults: 'delivery/target/surefire-reports/*.xml', allowEmptyResults: true
+                            jacoco(
+                                execPattern:      'delivery/target/jacoco.exec',
+                                classPattern:     'delivery/target/classes',
+                                sourcePattern:    'delivery/src/main/java',
+                                inclusionPattern: '**/*.class'
+                            )
+                        }
+                    }
+                }
+                stage('Build Delivery') {
+                    steps {
+                        dir('delivery') {
+                            sh 'chmod +x ./mvnw'
+                            sh './mvnw -f ../pom.xml clean package -pl delivery -am -DskipTests'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Common-Library') {
+            when {
+                anyOf {
+                    changeset "common-library/**"
+                    changeset "pom.xml"
+                    changeset "checkstyle/**"
+                }
+            }
+            stages {
+                stage('Test Common-Library') {
+                    steps {
+                        dir('customer') {
+                            sh 'chmod +x ./mvnw'
+                            sh './mvnw -f ../pom.xml clean test -pl common-library -am -Dmaven.test.failure.ignore=true'
+                        }
+                    }
+                    post {
+                        always {
+                            junit testResults: 'common-library/target/surefire-reports/*.xml', allowEmptyResults: true
+                            jacoco(
+                                execPattern:      'common-library/target/jacoco.exec',
+                                classPattern:     'common-library/target/classes',
+                                sourcePattern:    'common-library/src/main/java',
+                                inclusionPattern: '**/*.class'
+                            )
+                        }
+                    }
+                }
+                stage('Build Common-Library') {
+                    steps {
+                        dir('customer') {
+                            sh 'chmod +x ./mvnw'
+                            sh './mvnw -f ../pom.xml clean package -pl common-library -am -DskipTests'
                         }
                     }
                 }
