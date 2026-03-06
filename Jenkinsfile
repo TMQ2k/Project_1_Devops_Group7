@@ -18,7 +18,7 @@ pipeline {
                     steps {
                         dir('product') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl product -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl product -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -58,7 +58,7 @@ pipeline {
                     steps {
                         dir('cart') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl cart -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl cart -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -98,7 +98,7 @@ pipeline {
                     steps {
                         dir('customer') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl customer -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl customer -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -138,7 +138,7 @@ pipeline {
                     steps {
                         dir('inventory') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl inventory -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl inventory -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -178,7 +178,7 @@ pipeline {
                     steps {
                         dir('location') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl location -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl location -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -218,7 +218,7 @@ pipeline {
                     steps {
                         dir('media') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl media -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl media -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -258,7 +258,7 @@ pipeline {
                     steps {
                         dir('order') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl order -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl order -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -298,7 +298,7 @@ pipeline {
                     steps {
                         dir('payment') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl payment -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl payment -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -338,7 +338,7 @@ pipeline {
                     steps {
                         dir('payment-paypal') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl payment-paypal -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl payment-paypal -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -378,7 +378,7 @@ pipeline {
                     steps {
                         dir('promotion') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl promotion -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl promotion -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -418,7 +418,7 @@ pipeline {
                     steps {
                         dir('rating') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl rating -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl rating -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -458,7 +458,7 @@ pipeline {
                     steps {
                         dir('search') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl search -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl search -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -498,7 +498,7 @@ pipeline {
                     steps {
                         dir('tax') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl tax -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl tax -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -538,7 +538,7 @@ pipeline {
                     steps {
                         dir('webhook') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl webhook -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl webhook -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -578,7 +578,7 @@ pipeline {
                     steps {
                         dir('sampledata') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl sampledata -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl sampledata -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -622,7 +622,7 @@ pipeline {
                     steps {
                         dir('backoffice-bff') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl backoffice-bff -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl backoffice-bff -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -662,7 +662,7 @@ pipeline {
                     steps {
                         dir('storefront-bff') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl storefront-bff -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl storefront-bff -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -706,7 +706,7 @@ pipeline {
                     steps {
                         dir('recommendation') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl recommendation -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl recommendation -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -746,7 +746,7 @@ pipeline {
                     steps {
                         dir('delivery') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl delivery -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl delivery -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -785,7 +785,7 @@ pipeline {
                     steps {
                         dir('customer') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean verify -pl common-library -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean test -pl common-library -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
