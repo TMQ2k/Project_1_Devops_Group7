@@ -32,6 +32,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -74,6 +79,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -116,6 +126,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -158,6 +173,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -200,6 +220,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -242,6 +267,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -284,6 +314,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -326,6 +361,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -368,6 +408,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -410,6 +455,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -452,6 +502,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -494,6 +549,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -536,6 +596,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -578,6 +643,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -620,6 +690,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -666,6 +741,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -708,6 +788,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -754,6 +839,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -796,6 +886,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
@@ -837,6 +932,11 @@ pipeline {
                                 minimumLineCoverage: '70',
                                 minimumBranchCoverage: '70'
                             )
+                            script {
+                                if (currentBuild.result == 'UNSTABLE') {
+                                    error("Coverage below 70% threshold — build FAILED")
+                                }
+                            }
                         }
                     }
                 }
