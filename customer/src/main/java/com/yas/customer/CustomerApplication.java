@@ -15,6 +15,7 @@ public class CustomerApplication {
     // CI test: verify Jenkins changeset detection for customer service - added a comment to trigger changeset detection for coverage > 70%
     // CI trigger: 2026-03-06 - test pipeline coverage enforcement (expect FAIL when coverage < 70%)
     // CI trigger: 2026-03-06 - test pipeline coverage enforcement (expect FAIL when coverage < 70%) - added a comment to trigger changeset detection
+    // CI trigger: 2026-03-06 - test pipeline coverage enforcement (expect FAIL when coverage < 70%) - added a comment to trigger changeset detection for coverage > 70% ver 2
     public static void main(String[] args) {
         SpringApplication.run(CustomerApplication.class, args);
     }
