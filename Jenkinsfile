@@ -34,7 +34,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -82,7 +82,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -130,7 +130,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -178,7 +178,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -226,7 +226,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -274,7 +274,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -322,7 +322,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -370,7 +370,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -418,7 +418,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -466,7 +466,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -514,7 +514,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -562,7 +562,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -610,7 +610,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -658,7 +658,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -706,7 +706,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -758,7 +758,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -806,7 +806,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -858,7 +858,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -906,7 +906,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -953,7 +953,7 @@ pipeline {
                                 changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
