@@ -1,5 +1,6 @@
 package com.yas.customer.viewmodel.customer;
 
+// Test pipeline: coverage check > 70% - trigger CI
 import org.keycloak.representations.idm.UserRepresentation;
 
 public record CustomerVm(String id, String username, String email, String firstName, String lastName) {
