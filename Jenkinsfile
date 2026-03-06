@@ -18,7 +18,7 @@ pipeline {
                     steps {
                         dir('product') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl product -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl product -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -28,16 +28,8 @@ pipeline {
                                 execPattern:      'product/target/jacoco.exec',
                                 classPattern:     'product/target/classes',
                                 sourcePattern:    'product/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -66,7 +58,7 @@ pipeline {
                     steps {
                         dir('cart') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl cart -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl cart -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -76,16 +68,8 @@ pipeline {
                                 execPattern:      'cart/target/jacoco.exec',
                                 classPattern:     'cart/target/classes',
                                 sourcePattern:    'cart/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -114,7 +98,7 @@ pipeline {
                     steps {
                         dir('customer') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl customer -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl customer -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -124,16 +108,8 @@ pipeline {
                                 execPattern:      'customer/target/jacoco.exec',
                                 classPattern:     'customer/target/classes',
                                 sourcePattern:    'customer/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -162,7 +138,7 @@ pipeline {
                     steps {
                         dir('inventory') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl inventory -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl inventory -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -172,16 +148,8 @@ pipeline {
                                 execPattern:      'inventory/target/jacoco.exec',
                                 classPattern:     'inventory/target/classes',
                                 sourcePattern:    'inventory/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -210,7 +178,7 @@ pipeline {
                     steps {
                         dir('location') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl location -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl location -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -220,16 +188,8 @@ pipeline {
                                 execPattern:      'location/target/jacoco.exec',
                                 classPattern:     'location/target/classes',
                                 sourcePattern:    'location/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -258,7 +218,7 @@ pipeline {
                     steps {
                         dir('media') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl media -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl media -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -268,16 +228,8 @@ pipeline {
                                 execPattern:      'media/target/jacoco.exec',
                                 classPattern:     'media/target/classes',
                                 sourcePattern:    'media/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -306,7 +258,7 @@ pipeline {
                     steps {
                         dir('order') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl order -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl order -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -316,16 +268,8 @@ pipeline {
                                 execPattern:      'order/target/jacoco.exec',
                                 classPattern:     'order/target/classes',
                                 sourcePattern:    'order/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -354,7 +298,7 @@ pipeline {
                     steps {
                         dir('payment') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl payment -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl payment -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -364,16 +308,8 @@ pipeline {
                                 execPattern:      'payment/target/jacoco.exec',
                                 classPattern:     'payment/target/classes',
                                 sourcePattern:    'payment/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -402,7 +338,7 @@ pipeline {
                     steps {
                         dir('payment-paypal') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl payment-paypal -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl payment-paypal -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -412,16 +348,8 @@ pipeline {
                                 execPattern:      'payment-paypal/target/jacoco.exec',
                                 classPattern:     'payment-paypal/target/classes',
                                 sourcePattern:    'payment-paypal/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -450,7 +378,7 @@ pipeline {
                     steps {
                         dir('promotion') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl promotion -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl promotion -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -460,16 +388,8 @@ pipeline {
                                 execPattern:      'promotion/target/jacoco.exec',
                                 classPattern:     'promotion/target/classes',
                                 sourcePattern:    'promotion/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -498,7 +418,7 @@ pipeline {
                     steps {
                         dir('rating') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl rating -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl rating -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -508,16 +428,8 @@ pipeline {
                                 execPattern:      'rating/target/jacoco.exec',
                                 classPattern:     'rating/target/classes',
                                 sourcePattern:    'rating/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -546,7 +458,7 @@ pipeline {
                     steps {
                         dir('search') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl search -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl search -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -556,16 +468,8 @@ pipeline {
                                 execPattern:      'search/target/jacoco.exec',
                                 classPattern:     'search/target/classes',
                                 sourcePattern:    'search/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -594,7 +498,7 @@ pipeline {
                     steps {
                         dir('tax') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl tax -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl tax -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -604,16 +508,8 @@ pipeline {
                                 execPattern:      'tax/target/jacoco.exec',
                                 classPattern:     'tax/target/classes',
                                 sourcePattern:    'tax/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -642,7 +538,7 @@ pipeline {
                     steps {
                         dir('webhook') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl webhook -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl webhook -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -652,16 +548,8 @@ pipeline {
                                 execPattern:      'webhook/target/jacoco.exec',
                                 classPattern:     'webhook/target/classes',
                                 sourcePattern:    'webhook/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -690,7 +578,7 @@ pipeline {
                     steps {
                         dir('sampledata') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl sampledata -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl sampledata -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -700,16 +588,8 @@ pipeline {
                                 execPattern:      'sampledata/target/jacoco.exec',
                                 classPattern:     'sampledata/target/classes',
                                 sourcePattern:    'sampledata/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -742,7 +622,7 @@ pipeline {
                     steps {
                         dir('backoffice-bff') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl backoffice-bff -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl backoffice-bff -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -752,16 +632,8 @@ pipeline {
                                 execPattern:      'backoffice-bff/target/jacoco.exec',
                                 classPattern:     'backoffice-bff/target/classes',
                                 sourcePattern:    'backoffice-bff/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -790,7 +662,7 @@ pipeline {
                     steps {
                         dir('storefront-bff') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl storefront-bff -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl storefront-bff -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -800,16 +672,8 @@ pipeline {
                                 execPattern:      'storefront-bff/target/jacoco.exec',
                                 classPattern:     'storefront-bff/target/classes',
                                 sourcePattern:    'storefront-bff/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -842,7 +706,7 @@ pipeline {
                     steps {
                         dir('recommendation') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl recommendation -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl recommendation -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -852,16 +716,8 @@ pipeline {
                                 execPattern:      'recommendation/target/jacoco.exec',
                                 classPattern:     'recommendation/target/classes',
                                 sourcePattern:    'recommendation/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -890,7 +746,7 @@ pipeline {
                     steps {
                         dir('delivery') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl delivery -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl delivery -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -900,16 +756,8 @@ pipeline {
                                 execPattern:      'delivery/target/jacoco.exec',
                                 classPattern:     'delivery/target/classes',
                                 sourcePattern:    'delivery/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
@@ -937,7 +785,7 @@ pipeline {
                     steps {
                         dir('customer') {
                             sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean test -pl common-library -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh './mvnw -f ../pom.xml clean verify -pl common-library -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -947,16 +795,8 @@ pipeline {
                                 execPattern:      'common-library/target/jacoco.exec',
                                 classPattern:     'common-library/target/classes',
                                 sourcePattern:    'common-library/src/main/java',
-                                inclusionPattern: '**/*.class',
-                                minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70',
-                                changeBuildStatus: true
+                                inclusionPattern: '**/*.class'
                             )
-                            script {
-                                if (currentBuild.currentResult == 'UNSTABLE') {
-                                    error("Coverage below 70% threshold — build FAILED")
-                                }
-                            }
                         }
                     }
                 }
