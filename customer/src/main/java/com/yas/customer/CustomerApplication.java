@@ -12,6 +12,7 @@ public class CustomerApplication {
 
     // CI test: verify Jenkins changeset detection for customer service
     // CI test: verify Jenkins changeset detection for customer service - added a comment to trigger changeset detection
+    // CI test: verify Jenkins changeset detection for customer service - added a comment to trigger changeset detection for coverage > 70%
     public static void main(String[] args) {
         SpringApplication.run(CustomerApplication.class, args);
     }
