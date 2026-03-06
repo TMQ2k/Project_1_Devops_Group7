@@ -30,10 +30,11 @@ pipeline {
                                 sourcePattern:    'product/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -77,10 +78,11 @@ pipeline {
                                 sourcePattern:    'cart/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -124,10 +126,11 @@ pipeline {
                                 sourcePattern:    'customer/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -171,10 +174,11 @@ pipeline {
                                 sourcePattern:    'inventory/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -218,10 +222,11 @@ pipeline {
                                 sourcePattern:    'location/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -265,10 +270,11 @@ pipeline {
                                 sourcePattern:    'media/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -312,10 +318,11 @@ pipeline {
                                 sourcePattern:    'order/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -359,10 +366,11 @@ pipeline {
                                 sourcePattern:    'payment/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -406,10 +414,11 @@ pipeline {
                                 sourcePattern:    'payment-paypal/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -453,10 +462,11 @@ pipeline {
                                 sourcePattern:    'promotion/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -500,10 +510,11 @@ pipeline {
                                 sourcePattern:    'rating/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -547,10 +558,11 @@ pipeline {
                                 sourcePattern:    'search/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -594,10 +606,11 @@ pipeline {
                                 sourcePattern:    'tax/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -641,10 +654,11 @@ pipeline {
                                 sourcePattern:    'webhook/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -688,10 +702,11 @@ pipeline {
                                 sourcePattern:    'sampledata/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -739,10 +754,11 @@ pipeline {
                                 sourcePattern:    'backoffice-bff/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -786,10 +802,11 @@ pipeline {
                                 sourcePattern:    'storefront-bff/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -837,10 +854,11 @@ pipeline {
                                 sourcePattern:    'recommendation/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -884,10 +902,11 @@ pipeline {
                                 sourcePattern:    'delivery/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
@@ -930,10 +949,11 @@ pipeline {
                                 sourcePattern:    'common-library/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
-                                if (currentBuild.result == 'UNSTABLE') {
+                                if (currentBuild.currentResult == 'UNSTABLE') {
                                     error("Coverage below 70% threshold — build FAILED")
                                 }
                             }
