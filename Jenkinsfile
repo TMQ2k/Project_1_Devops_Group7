@@ -30,7 +30,8 @@ pipeline {
                                 sourcePattern:    'product/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -77,7 +78,8 @@ pipeline {
                                 sourcePattern:    'cart/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -124,7 +126,8 @@ pipeline {
                                 sourcePattern:    'customer/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -171,7 +174,8 @@ pipeline {
                                 sourcePattern:    'inventory/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -218,7 +222,8 @@ pipeline {
                                 sourcePattern:    'location/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -265,7 +270,8 @@ pipeline {
                                 sourcePattern:    'media/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -312,7 +318,8 @@ pipeline {
                                 sourcePattern:    'order/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -359,7 +366,8 @@ pipeline {
                                 sourcePattern:    'payment/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -406,7 +414,8 @@ pipeline {
                                 sourcePattern:    'payment-paypal/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -453,7 +462,8 @@ pipeline {
                                 sourcePattern:    'promotion/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -500,7 +510,8 @@ pipeline {
                                 sourcePattern:    'rating/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -547,7 +558,8 @@ pipeline {
                                 sourcePattern:    'search/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -594,7 +606,8 @@ pipeline {
                                 sourcePattern:    'tax/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -641,7 +654,8 @@ pipeline {
                                 sourcePattern:    'webhook/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -688,7 +702,8 @@ pipeline {
                                 sourcePattern:    'sampledata/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -739,7 +754,8 @@ pipeline {
                                 sourcePattern:    'backoffice-bff/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -786,7 +802,8 @@ pipeline {
                                 sourcePattern:    'storefront-bff/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -837,7 +854,8 @@ pipeline {
                                 sourcePattern:    'recommendation/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -884,7 +902,8 @@ pipeline {
                                 sourcePattern:    'delivery/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
@@ -930,7 +949,8 @@ pipeline {
                                 sourcePattern:    'common-library/src/main/java',
                                 inclusionPattern: '**/*.class',
                                 minimumLineCoverage: '70',
-                                minimumBranchCoverage: '70'
+                                minimumBranchCoverage: '70',
+                                changeBuildStatus: true
                             )
                             script {
                                 if (currentBuild.result == 'UNSTABLE') {
