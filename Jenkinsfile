@@ -83,6 +83,9 @@ pipeline {
                 expression { return env.CHANGED_SERVICES?.trim() }
             }
             steps {
+                // mvnw expects .mvn/wrapper/ in the working directory;
+                // it only exists inside service subdirs, so copy it to root
+                sh 'cp -r product/.mvn . || true'
                 sh 'chmod +x ./product/mvnw'
                 sh "./product/mvnw -f pom.xml clean verify -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
             }
