@@ -705,8 +705,8 @@ pipeline {
                 stage('Test Recommendation') {
                     steps {
                         dir('recommendation') {
-                            sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean prepare-package -pl recommendation -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh 'chmod +x ../product/mvnw'
+                            sh '../product/mvnw -f ../pom.xml clean prepare-package -pl recommendation -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -724,8 +724,8 @@ pipeline {
                 stage('Build Recommendation') {
                     steps {
                         dir('recommendation') {
-                            sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean package -pl recommendation -am -DskipTests'
+                            sh 'chmod +x ../product/mvnw'
+                            sh '../product/mvnw -f ../pom.xml clean package -pl recommendation -am -DskipTests'
                         }
                     }
                 }
@@ -745,8 +745,8 @@ pipeline {
                 stage('Test Delivery') {
                     steps {
                         dir('delivery') {
-                            sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean prepare-package -pl delivery -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                            sh 'chmod +x ../product/mvnw'
+                            sh '../product/mvnw -f ../pom.xml clean prepare-package -pl delivery -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -764,8 +764,8 @@ pipeline {
                 stage('Build Delivery') {
                     steps {
                         dir('delivery') {
-                            sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean package -pl delivery -am -DskipTests'
+                            sh 'chmod +x ../product/mvnw'
+                            sh '../product/mvnw -f ../pom.xml clean package -pl delivery -am -DskipTests'
                         }
                     }
                 }
@@ -783,9 +783,9 @@ pipeline {
             stages {
                 stage('Test Common-Library') {
                     steps {
-                        dir('customer') {
-                            sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean prepare-package -pl common-library -am -Dmaven.test.failIfNoSpecifiedTests=false'
+                        dir('common-library') {
+                            sh 'chmod +x ../product/mvnw'
+                            sh '../product/mvnw -f ../pom.xml clean prepare-package -pl common-library -am -Dmaven.test.failIfNoSpecifiedTests=false'
                         }
                     }
                     post {
@@ -802,9 +802,9 @@ pipeline {
                 }
                 stage('Build Common-Library') {
                     steps {
-                        dir('customer') {
-                            sh 'chmod +x ./mvnw'
-                            sh './mvnw -f ../pom.xml clean package -pl common-library -am -DskipTests'
+                        dir('common-library') {
+                            sh 'chmod +x ../product/mvnw'
+                            sh '../product/mvnw -f ../pom.xml clean package -pl common-library -am -DskipTests'
                         }
                     }
                 }
