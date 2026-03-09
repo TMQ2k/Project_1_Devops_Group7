@@ -87,7 +87,7 @@ pipeline {
                 // it only exists inside service subdirs, so copy it to root
                 sh 'cp -r product/.mvn . || true'
                 sh 'chmod +x ./product/mvnw'
-                sh "./product/mvnw -f pom.xml clean verify -pl ${env.CHANGED_SERVICES} -am -DskipITs -Dmaven.test.failIfNoSpecifiedTests=false"
+                sh "./product/mvnw -f pom.xml clean verify -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
             }
             post {
                 always {
