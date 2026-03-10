@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    tools{
+    tools {
         maven 'maven'
         jdk 'jdk-21'
     }
@@ -14,7 +14,6 @@ pipeline {
         stage('Detect Changes') {
             steps {
                 script {
-                    // All services managed by this pipeline (add new services here)
                     def allServices = [
                         'common-library',
                         'product', 'cart', 'customer', 'inventory', 'location',
@@ -24,12 +23,9 @@ pipeline {
                         'recommendation', 'delivery'
                     ]
 
-                    // Detect changed files: prefer git diff against main,
-                    // fall back to SCM changeSets, then build everything
                     def changedFiles = []
 
                     // Primary: git diff against origin/main (works for PR branches)
-                    // Must fetch main first – Jenkins only checks out the PR branch
                     try {
                         sh 'git fetch origin main:refs/remotes/origin/main'
                         def diffOutput = sh(
@@ -54,11 +50,10 @@ pipeline {
                         }
                     }
 
-                    // No changes detected
+                    // No changes detected – skip build & test
                     if (changedFiles.isEmpty()) {
-                            env.CHANGED_SERVICES = ''
-                            echo "No service changes detected – skipping build & test."
-                        }
+                        env.CHANGED_SERVICES = ''
+                        echo "No service changes detected – skipping build & test."
                         return
                     }
 
@@ -79,55 +74,49 @@ pipeline {
                     echo "Changed services: ${env.CHANGED_SERVICES ?: 'none'}"
                 }
             }
+        }
 
-                // ====================================================================
-            // STAGE 2: Test – compile + run tests + generate coverage
-            //   • `-pl svc1,svc2,... -am` tests only what changed + deps
-            //   • No `clean` in build stage → reuse compiled artifacts
-            // ====================================================================
-            stage('Test') {
-                when {
-                    expression { return env.CHANGED_SERVICES?.trim() }
-                }
-                steps {
-                    sh "mvn -f pom.xml clean test jacoco:report -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
-                }
-                post {
-                    always {
-                        // Aggregate JUnit results across all tested services
-                        junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
-
-                        // Aggregate JaCoCo coverage – single report, shared thresholds
-                        jacoco(
-                            execPattern:           '**/target/jacoco.exec',
-                            classPattern:          '**/target/classes',
-                            sourcePattern:         '**/src/main/java',
-                            inclusionPattern:      '**/*.class',
-                            changeBuildStatus:     true,
-                            minimumLineCoverage:   '70',
-                        )
-                    }
-                }
+        // ====================================================================
+        // STAGE 2: Test – compile + run tests + generate coverage
+        // ====================================================================
+        stage('Test') {
+            when {
+                expression { return env.CHANGED_SERVICES?.trim() }
             }
-
-            // ====================================================================
-            // STAGE 3: Build – package JARs reusing compiled classes from Test
-            //   • No `clean` → reuse artifacts already compiled in Test stage
-            //   • `-DskipTests` → tests already passed
-            // ====================================================================
-            stage('Build') {
-                when {
-                    expression { return env.CHANGED_SERVICES?.trim() }
-                }
-                steps {
-                    sh "mvn -f pom.xml package -pl ${env.CHANGED_SERVICES} -am -DskipTests"
+            steps {
+                sh "mvn -f pom.xml clean verify jacoco:report -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
+            }
+            post {
+                always {
+                    junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
+                    jacoco(
+                        execPattern:         '**/target/jacoco.exec',
+                        classPattern:        '**/target/classes',
+                        sourcePattern:       '**/src/main/java',
+                        inclusionPattern:    '**/*.class',
+                        changeBuildStatus:   true,
+                        minimumLineCoverage: '70',
+                    )
                 }
             }
         }
 
-        post {
-            always {
-                cleanWs()
+        // ====================================================================
+        // STAGE 3: Build – package JARs reusing compiled classes from Test
+        // ====================================================================
+        stage('Build') {
+            when {
+                expression { return env.CHANGED_SERVICES?.trim() }
+            }
+            steps {
+                sh "mvn -f pom.xml package -pl ${env.CHANGED_SERVICES} -am -DskipTests"
             }
         }
-    }   
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
