@@ -97,6 +97,11 @@ pipeline {
                         changeBuildStatus:   true,
                         minimumLineCoverage: '70',
                     )
+                    script {
+                        if (currentBuild.result == 'UNSTABLE') {
+                            error "Build failed: Code coverage is below the minimum 70% threshold!"
+                        }
+                    }
                 }
             }
         }
