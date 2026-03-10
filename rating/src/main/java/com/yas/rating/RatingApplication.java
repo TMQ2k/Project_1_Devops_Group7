@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+// comment test v1
 @SpringBootApplication(scanBasePackages = {"com.yas.rating", "com.yas.commonlibrary"})
 @EnableConfigurationProperties({ServiceUrlConfig.class, CorsConfig.class})
 public class RatingApplication {
