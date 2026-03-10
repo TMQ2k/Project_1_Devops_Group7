@@ -29,7 +29,9 @@ pipeline {
                     def changedFiles = []
 
                     // Primary: git diff against origin/main (works for PR branches)
+                    // Must fetch main first – Jenkins only checks out the PR branch
                     try {
+                        sh 'git fetch origin main:refs/remotes/origin/main'
                         def diffOutput = sh(
                             script: 'git diff --name-only origin/main...HEAD',
                             returnStdout: true
@@ -52,10 +54,11 @@ pipeline {
                         }
                     }
 
-                    // Last resort: build everything
+                    // No changes detected
                     if (changedFiles.isEmpty()) {
-                        env.CHANGED_SERVICES = allServices.join(',')
-                        echo "No changes detected (manual or first build). Building all services."
+                            env.CHANGED_SERVICES = ''
+                            echo "No service changes detected – skipping build & test."
+                        }
                         return
                     }
 
