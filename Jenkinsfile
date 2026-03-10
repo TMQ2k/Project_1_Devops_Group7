@@ -79,49 +79,49 @@ pipeline {
                     echo "Changed services: ${env.CHANGED_SERVICES ?: 'none'}"
                 }
             }
-        }
 
-        // ====================================================================
-        // STAGE 2: Test – compile + run tests + generate coverage
-        //   • `-pl svc1,svc2,... -am` tests only what changed + deps
-        //   • No `clean` in build stage → reuse compiled artifacts
-        // ====================================================================
-        stage('Test') {
-            when {
-                expression { return env.CHANGED_SERVICES?.trim() }
-            }
-            steps {
-                sh "mvn -f pom.xml clean test jacoco:report -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
-            }
-            post {
-                always {
-                    // Aggregate JUnit results across all tested services
-                    junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
+                // ====================================================================
+            // STAGE 2: Test – compile + run tests + generate coverage
+            //   • `-pl svc1,svc2,... -am` tests only what changed + deps
+            //   • No `clean` in build stage → reuse compiled artifacts
+            // ====================================================================
+            stage('Test') {
+                when {
+                    expression { return env.CHANGED_SERVICES?.trim() }
+                }
+                steps {
+                    sh "mvn -f pom.xml clean test jacoco:report -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
+                }
+                post {
+                    always {
+                        // Aggregate JUnit results across all tested services
+                        junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
 
-                    // Aggregate JaCoCo coverage – single report, shared thresholds
-                    jacoco(
-                        execPattern:           '**/target/jacoco.exec',
-                        classPattern:          '**/target/classes',
-                        sourcePattern:         '**/src/main/java',
-                        inclusionPattern:      '**/*.class',
-                        changeBuildStatus:     true,
-                        minimumLineCoverage:   '70',
-                    )
+                        // Aggregate JaCoCo coverage – single report, shared thresholds
+                        jacoco(
+                            execPattern:           '**/target/jacoco.exec',
+                            classPattern:          '**/target/classes',
+                            sourcePattern:         '**/src/main/java',
+                            inclusionPattern:      '**/*.class',
+                            changeBuildStatus:     true,
+                            minimumLineCoverage:   '70',
+                        )
+                    }
                 }
             }
-        }
 
-        // ====================================================================
-        // STAGE 3: Build – package JARs reusing compiled classes from Test
-        //   • No `clean` → reuse artifacts already compiled in Test stage
-        //   • `-DskipTests` → tests already passed
-        // ====================================================================
-        stage('Build') {
-            when {
-                expression { return env.CHANGED_SERVICES?.trim() }
-            }
-            steps {
-                sh "mvn -f pom.xml package -pl ${env.CHANGED_SERVICES} -am -DskipTests"
+            // ====================================================================
+            // STAGE 3: Build – package JARs reusing compiled classes from Test
+            //   • No `clean` → reuse artifacts already compiled in Test stage
+            //   • `-DskipTests` → tests already passed
+            // ====================================================================
+            stage('Build') {
+                when {
+                    expression { return env.CHANGED_SERVICES?.trim() }
+                }
+                steps {
+                    sh "mvn -f pom.xml package -pl ${env.CHANGED_SERVICES} -am -DskipTests"
+                }
             }
         }
 
@@ -130,7 +130,4 @@ pipeline {
                 cleanWs()
             }
         }
-
-    }
-
-    
+    }   
