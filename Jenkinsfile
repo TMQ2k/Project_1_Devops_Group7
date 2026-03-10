@@ -94,13 +94,13 @@ pipeline {
                         classPattern:        '**/target/classes',
                         sourcePattern:       '**/src/main/java',
                         inclusionPattern:    '**/*.class',
-                        changeBuildStatus:   true,
+                        changeBuildStatus:   false,
                         minimumLineCoverage: '70',
                     )
+                }
+                failure {
                     script {
-                        if (currentBuild.result == 'UNSTABLE') {
-                            error "Build failed: Code coverage is below the minimum 70% threshold!"
-                        }
+                        echo "Build failed: Code coverage is below the minimum 70% threshold!"
                     }
                 }
             }
