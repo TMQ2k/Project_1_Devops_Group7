@@ -89,18 +89,29 @@ pipeline {
             post {
                 always {
                     junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
-                    recordCoverage(
-                        tools: [[parser: 'JACOCO']],
-                        id: 'jacoco', name: 'JaCoCo Coverage',
-                        sourceCodeRetention: 'EVERY_BUILD',
-                        qualityGates: [
-                            [threshold: 70.0, metric: 'LINE',   baseline: 'PROJECT', unstable: true],
-                            [threshold: 70.0, metric: 'BRANCH', baseline: 'PROJECT', unstable: true]
-                        ]
-                    )
                     script {
-                        if (currentBuild.result == 'UNSTABLE') {
-                            error "Build failed: Code coverage is below the minimum 70% threshold!"
+                        def services = env.CHANGED_SERVICES?.split(',') ?: []
+                        def pattern = services
+                            .findAll { it != 'common-library' }
+                            .collect { "${it}/target/site/jacoco/jacoco.xml" }
+                            .join(',')
+
+                        if (pattern) {
+                            recordCoverage(
+                                tools: [[parser: 'JACOCO', pattern: pattern]],
+                                id: 'jacoco', name: 'JaCoCo Coverage',
+                                sourceCodeRetention: 'EVERY_BUILD',
+                                qualityGates: [
+                                    [threshold: 70.0, metric: 'LINE',   baseline: 'PROJECT', unstable: true],
+                                    [threshold: 70.0, metric: 'BRANCH', baseline: 'PROJECT', unstable: true]
+                                ]
+                            )
+
+                            if (currentBuild.result == 'UNSTABLE') {
+                                error "Build failed: Code coverage is below the minimum 70% threshold!"
+                            }
+                        } else {
+                            echo "No service coverage reports to check."
                         }
                     }
                 }
