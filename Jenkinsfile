@@ -89,18 +89,19 @@ pipeline {
             post {
                 always {
                     junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
-                    jacoco(
-                        execPattern:         '**/target/jacoco.exec',
-                        classPattern:        '**/target/classes',
-                        sourcePattern:       '**/src/main/java',
-                        inclusionPattern:    '**/*.class',
-                        changeBuildStatus:   false,
-                        minimumLineCoverage: '70',
+                    recordCoverage(
+                        tools: [[parser: 'JACOCO']],
+                        id: 'jacoco', name: 'JaCoCo Coverage',
+                        sourceCodeRetention: 'EVERY_BUILD',
+                        qualityGates: [
+                            [threshold: 70.0, metric: 'LINE',   baseline: 'PROJECT', unstable: true],
+                            [threshold: 70.0, metric: 'BRANCH', baseline: 'PROJECT', unstable: true]
+                        ]
                     )
-                }
-                failure {
                     script {
-                        echo "Build failed: Code coverage is below the minimum 70% threshold!"
+                        if (currentBuild.result == 'UNSTABLE') {
+                            error "Build failed: Code coverage is below the minimum 70% threshold!"
+                        }
                     }
                 }
             }
