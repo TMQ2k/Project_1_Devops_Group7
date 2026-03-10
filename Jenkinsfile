@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools{
+        maven 'maven'
+        jdk 'jdk-21'
+    }
+
     stages {
 
         // ====================================================================
@@ -83,11 +88,7 @@ pipeline {
                 expression { return env.CHANGED_SERVICES?.trim() }
             }
             steps {
-                // mvnw expects .mvn/wrapper/ in the working directory;
-                // it only exists inside service subdirs, so copy it to root
-                sh 'cp -r product/.mvn . || true'
-                sh 'chmod +x ./product/mvnw'
-                sh "./product/mvnw -f pom.xml clean verify -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
+                sh "mvn -f pom.xml clean test jacoco:report -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
             }
             post {
                 always {
@@ -117,7 +118,7 @@ pipeline {
                 expression { return env.CHANGED_SERVICES?.trim() }
             }
             steps {
-                sh "./product/mvnw -f pom.xml package -pl ${env.CHANGED_SERVICES} -am -DskipTests"
+                sh "mvn -f pom.xml package -pl ${env.CHANGED_SERVICES} -am -DskipTests"
             }
         }
 
