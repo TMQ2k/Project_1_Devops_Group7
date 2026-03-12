@@ -51,6 +51,16 @@ class CustomAuditingEntityListenerTest {
     }
 
     @Test
+    void testTouchForCreate_whenCreatedByAndLastModifiedByAreNotNull_doNothing() {
+
+        when(entity.getCreatedBy()).thenReturn("user1");
+        when(entity.getLastModifiedBy()).thenReturn("user2");
+        listener.touchForCreate(entity);
+        verify(entity, never()).setLastModifiedBy(any());
+        verify(auditingHandler, never()).markCreated(any());
+    }
+
+    @Test
     void testTouchForUpdate_henLastModifiedByIsNull_markModified() {
 
         when(entity.getLastModifiedBy()).thenReturn(null);
