@@ -149,9 +149,52 @@ pipeline {
                 }
             }
         }
+        // ====================================================================
+        // STAGE 4: Security - scan dependencies with Snyk
+        // ====================================================================
+        stage('Dependency Scan (Snyk)') {
+            // when {
+            //     expression { return env.CHANGED_SERVICES?.trim() }
+            // }
+            steps {
+                withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')]) {
+                    script {
+                        def services = env.CHANGED_SERVICES.split(',')
+                        def failedServices = []
+
+                        services.each { svc ->
+                            def reportFile = "snyk-${svc}.sarif"
+                            def exitCode = sh(
+                                script: """
+                                    cd ${svc}
+                                    snyk test \
+                                    --file=pom.xml \
+                                    --package-manager=maven \
+                                    --severity-threshold=high \
+                                    --sarif-file-output=../${reportFile}
+                                """,
+                                returnStatus: true
+                            )
+
+                            archiveArtifacts artifacts: reportFile, allowEmptyArchive: true
+
+                            if (exitCode == 1) {
+                                failedServices.add(svc)
+                            } else if (exitCode > 1) {
+                                error("Snyk execution failed for ${svc}")
+                            }
+                        }
+
+                        if (!failedServices.isEmpty()) {
+                            error("Snyk found vulnerabilities in: ${failedServices.join(', ')}")
+                        }
+                    }
+                }
+            }
+        }
 
         // ====================================================================
-        // STAGE 4: Build – package JARs reusing compiled classes from Test
+        // STAGE 5: Build – package JARs reusing compiled classes from Test
         // ====================================================================
         stage('Build') {
             when {
