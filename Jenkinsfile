@@ -77,7 +77,39 @@ pipeline {
         }
 
         // ====================================================================
-        // STAGE 2: Test – compile + run tests + generate coverage
+        // STAGE 2: Security - scan secrets with Gitleaks
+        // ====================================================================
+        stage('Secret Scan (Gitleaks)') {
+            // when {
+            //     expression { return env.CHANGED_SERVICES?.trim() }
+            // }
+            steps {
+                script {
+                    def exitCode = sh(
+                        script: '''
+                            gitleaks detect \
+                              --source . \
+                              --config gitleaks.toml \
+                              --no-git \
+                              --report-format sarif \
+                              --report-path gitleaks-report.sarif \
+                              --redact \
+                              --verbose
+                        ''',
+                        returnStatus: true
+                    )
+
+                    archiveArtifacts artifacts: 'gitleaks-report.sarif', allowEmptyArchive: true
+
+                    if (exitCode != 0) {
+                        error 'Gitleaks failed: potential secret(s) were detected. Check gitleaks-report.sarif artifact.'
+                    }
+                }
+            }
+        }
+
+        // ====================================================================
+        // STAGE 3: Test – compile + run tests + generate coverage
         // ====================================================================
         stage('Test') {
             when {
@@ -119,7 +151,7 @@ pipeline {
         }
 
         // ====================================================================
-        // STAGE 3: Build – package JARs reusing compiled classes from Test
+        // STAGE 4: Build – package JARs reusing compiled classes from Test
         // ====================================================================
         stage('Build') {
             when {
