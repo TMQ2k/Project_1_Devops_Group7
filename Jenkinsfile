@@ -159,19 +159,34 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')]) {
                     script {
-                        def services = env.CHANGED_SERVICES.split(',')
+                        sh 'snyk --version'
+
+                        def services = (env.CHANGED_SERVICES ?: '')
+                            .split(',')
+                            .collect { it.trim() }
+                            .findAll { it }
+
+                        echo "Snyk target services: ${services.join(', ')}"
+
+                        if (services.isEmpty()) {
+                            echo 'No valid services found for Snyk scan.'
+                            return
+                        }
+
                         def failedServices = []
 
                         services.each { svc ->
+                            if (!fileExists("${svc}/pom.xml")) {
+                                echo "Skip ${svc}: pom.xml not found."
+                            } else {
                             def reportFile = "snyk-${svc}.sarif"
                             def exitCode = sh(
                                 script: """
-                                    cd ${svc}
                                     snyk test \
-                                    --file=pom.xml \
+                                    --file=${svc}/pom.xml \
                                     --package-manager=maven \
                                     --severity-threshold=high \
-                                    --sarif-file-output=../${reportFile}
+                                    --sarif-file-output=${reportFile}
                                 """,
                                 returnStatus: true
                             )
@@ -182,6 +197,7 @@ pipeline {
                                 failedServices.add(svc)
                             } else if (exitCode > 1) {
                                 error("Snyk execution failed for ${svc}")
+                            }
                             }
                         }
 
