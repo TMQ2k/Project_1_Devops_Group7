@@ -80,9 +80,9 @@ pipeline {
         // STAGE 2: Security - scan secrets with Gitleaks
         // ====================================================================
         stage('Secret Scan (Gitleaks)') {
-            // when {
-            //     expression { return env.CHANGED_SERVICES?.trim() }
-            // }
+            when {
+                expression { return env.CHANGED_SERVICES?.trim() }
+            }
             steps {
                 script {
                     def exitCode = sh(
