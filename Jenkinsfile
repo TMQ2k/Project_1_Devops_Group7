@@ -237,6 +237,76 @@ pipeline {
         // ====================================================================
         // STAGE 5: Code quality scan with SonarCloud
         // ====================================================================
+        // stage('Code Quality Scan (SonarCloud)') {
+        //     when {
+        //         expression { return env.CHANGED_SERVICES?.trim() }
+        //     }
+        //     steps {
+        //         withSonarQubeEnv('SonarCloud') {
+        //             script {
+        //                 def sonarOrg = (env.SONAR_ORG ?: '').trim()
+        //                 def sonarProjectPrefix = (env.SONAR_PROJECT_PREFIX ?: 'yas').trim()
+
+        //                 if (!sonarOrg || sonarOrg == 'CHANGE_ME_SONARCLOUD_ORG') {
+        //                     error('SONAR_ORG is not configured. Update environment.SONAR_ORG in Jenkinsfile with your SonarCloud organization key.')
+        //                 }
+
+        //                 def services = (env.CHANGED_SERVICES ?: '')
+        //                     .split(',')
+        //                     .collect { it.trim() }
+        //                     .findAll { it }
+
+        //                 echo "SonarCloud target services: ${services.join(', ')}"
+
+        //                 if (services.isEmpty()) {
+        //                     echo 'No valid services found for SonarCloud scan.'
+        //                     return
+        //                 }
+
+        //                 def failedServices = []
+
+        //                 services.each { svc ->
+        //                     if (!fileExists("${svc}/pom.xml")) {
+        //                         echo "Skip ${svc}: pom.xml not found."
+        //                     } else {
+        //                         def sonarProjectKey = "${sonarOrg}_${sonarProjectPrefix}-${svc}"
+        //                         def sonarProjectName = "${sonarProjectPrefix}-${svc}"
+                                
+        //                         echo "SonarCloud scan ${svc} -> projectKey=${sonarProjectKey}, projectName=${sonarProjectName}"
+
+        //                         // Đã sửa: Quét thẳng vào pom.xml của service con, ép projectName và sửa đường dẫn Jacoco
+        //                         def exitCode = sh(
+        //                             script: """
+        //                                 mvn -f ${svc}/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+        //                                 -Dsonar.host.url=${SONAR_HOST_URL} \
+        //                                 -Dsonar.organization=${sonarOrg} \
+        //                                 -Dsonar.projectKey=${sonarProjectKey} \
+        //                                 -Dsonar.projectName=${sonarProjectName} \
+        //                                 -Dsonar.token=${SONAR_AUTH_TOKEN} \
+        //                                 -Dsonar.qualitygate.wait=true \
+        //                                 -Dsonar.qualitygate.timeout=300 \
+        //                                 -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+        //                             """,
+        //                             returnStatus: true
+        //                         )
+
+        //                         if (exitCode != 0) {
+        //                             failedServices.add(svc)
+        //                         }
+        //                     }
+        //                 }
+
+        //                 if (!failedServices.isEmpty()) {
+        //                     error("SonarCloud scan failed for: ${failedServices.join(', ')}")
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
+        // ====================================================================
+        // STAGE 5: Code quality scan with SonarCloud (PR Support added)
+        // ====================================================================
         stage('Code Quality Scan (SonarCloud)') {
             when {
                 expression { return env.CHANGED_SERVICES?.trim() }
@@ -274,7 +344,18 @@ pipeline {
                                 
                                 echo "SonarCloud scan ${svc} -> projectKey=${sonarProjectKey}, projectName=${sonarProjectName}"
 
-                                // Đã sửa: Quét thẳng vào pom.xml của service con, ép projectName và sửa đường dẫn Jacoco
+                                // Tự động nhận diện Pull Request hoặc nhánh thông thường
+                                def sonarBranchParams = ""
+                                if (env.CHANGE_ID) {
+                                    // Jenkins cung cấp các biến này cho Multibranch Pipeline xử lý PR
+                                    sonarBranchParams = "-Dsonar.pullrequest.key=${env.CHANGE_ID} -Dsonar.pullrequest.branch=${env.CHANGE_BRANCH} -Dsonar.pullrequest.base=${env.CHANGE_TARGET}"
+                                    echo "Detect PR Build: PR-${env.CHANGE_ID}"
+                                } else if (env.BRANCH_NAME && env.BRANCH_NAME != 'main' && env.BRANCH_NAME != 'master') {
+                                    sonarBranchParams = "-Dsonar.branch.name=${env.BRANCH_NAME}"
+                                    echo "Detect Branch Build: ${env.BRANCH_NAME}"
+                                }
+
+                                // Bơm tham số vào lệnh Maven
                                 def exitCode = sh(
                                     script: """
                                         mvn -f ${svc}/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
@@ -285,7 +366,8 @@ pipeline {
                                         -Dsonar.token=${SONAR_AUTH_TOKEN} \
                                         -Dsonar.qualitygate.wait=true \
                                         -Dsonar.qualitygate.timeout=300 \
-                                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+                                        ${sonarBranchParams}
                                     """,
                                     returnStatus: true
                                 )
