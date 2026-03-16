@@ -96,6 +96,7 @@ pipeline {
                               --source . \
                               --config gitleaks.toml \
                               --no-git \
+                              --gitleaks-ignore-path .gitleaksignore \
                               --report-format sarif \
                               --report-path gitleaks-report.sarif \
                               --redact \
