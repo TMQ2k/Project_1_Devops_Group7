@@ -350,14 +350,21 @@
                         </execution>
                         <execution>
                             <id>report</id>
-                            <phase>prepare-package</phase>
+                            <phase>test</phase>
                             <goals>
                                 <goal>report</goal>
                             </goals>
                         </execution>
                         <execution>
+                            <id>report-aggregate</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>report-aggregate</goal>
+                            </goals>
+                        </execution>
+                        <execution>
                             <id>check</id>
-                            <phase>prepare-package</phase>
+                            <phase>verify</phase>
                             <goals>
                                 <goal>check</goal>
                             </goals>
@@ -369,6 +376,11 @@
                                         <limits>
                                             <limit>
                                                 <counter>LINE</counter>
+                                                <value>COVEREDRATIO</value>
+                                                <minimum>0.70</minimum>
+                                            </limit>
+                                            <limit>
+                                                <counter>BRANCH</counter>
                                                 <value>COVEREDRATIO</value>
                                                 <minimum>0.70</minimum>
                                             </limit>
@@ -439,6 +451,10 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
