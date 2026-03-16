@@ -174,7 +174,7 @@ pipeline {
         // ====================================================================
         stage('Code Quality Scan (SonarCloud)') {
             when {
-                expression { return env.CHANGED_SERVICES?.trim() }
+                expression { return env.CHANGED_SERVICES?.trim() && env.CHANGE_ID }
             }
             steps {
                 withSonarQubeEnv('SonarCloud') {
@@ -209,14 +209,9 @@ pipeline {
                                 
                                 echo "SonarCloud scan ${svc} -> projectKey=${sonarProjectKey}, projectName=${sonarProjectName}"
 
-                                def sonarBranchParams = ""
-                                if (env.CHANGE_ID) {
-                                    sonarBranchParams = "-Dsonar.pullrequest.key=${env.CHANGE_ID} -Dsonar.pullrequest.branch=${env.CHANGE_BRANCH} -Dsonar.pullrequest.base=${env.CHANGE_TARGET}"
-                                    echo "Detect PR Build: PR-${env.CHANGE_ID}"
-                                } else if (env.BRANCH_NAME && env.BRANCH_NAME != 'main' && env.BRANCH_NAME != 'master') {
-                                    sonarBranchParams = "-Dsonar.branch.name=${env.BRANCH_NAME}"
-                                    echo "Detect Branch Build: ${env.BRANCH_NAME}"
-                                }
+                                // Only PR builds reach this stage (see `when` condition above)
+                                def sonarBranchParams = "-Dsonar.pullrequest.key=${env.CHANGE_ID} -Dsonar.pullrequest.branch=${env.CHANGE_BRANCH} -Dsonar.pullrequest.base=${env.CHANGE_TARGET}"
+                                echo "PR Build detected: PR-${env.CHANGE_ID} (${env.CHANGE_BRANCH} -> ${env.CHANGE_TARGET})"
 
                                 def exitCode = sh(
                                     script: """
