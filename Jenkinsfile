@@ -398,6 +398,14 @@ pipeline {
                     script {
                         sh 'snyk --version'
                         sh 'find . -type f -name mvnw -exec chmod +x {} +'
+                        def projectRevision = sh(
+                            script: "sed -n 's:.*<revision>\\(.*\\)</revision>.*:\\1:p' pom.xml | head -n1",
+                            returnStdout: true
+                        ).trim()
+
+                        if (!projectRevision) {
+                            error('Unable to resolve <revision> from root pom.xml for Snyk Maven scan.')
+                        }
 
                         def services = (env.CHANGED_SERVICES ?: '')
                             .split(',')
@@ -425,7 +433,8 @@ pipeline {
                                     --package-manager=maven \
                                     --severity-threshold=high \
                                     -d \
-                                    --sarif-file-output=${reportFile}
+                                    --sarif-file-output=${reportFile} \
+                                    -- -Drevision=${projectRevision} -U
                                 """,
                                 returnStatus: true
                             )
