@@ -397,7 +397,10 @@ pipeline {
                 withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')]) {
                     script {
                         sh 'snyk --version'
+                        // Fix quyền cho Maven Wrapper
                         sh 'find . -type f -name mvnw -exec chmod +x {} +'
+                        
+                        // Lấy biến projectRevision từ file pom.xml gốc
                         def projectRevision = sh(
                             script: "sed -n 's:.*<revision>\\(.*\\)</revision>.*:\\1:p' pom.xml | head -n1",
                             returnStdout: true
@@ -407,56 +410,33 @@ pipeline {
                             error('Unable to resolve <revision> from root pom.xml for Snyk Maven scan.')
                         }
 
-                        def services = (env.CHANGED_SERVICES ?: '')
-                            .split(',')
-                            .collect { it.trim() }
-                            .findAll { it }
+                        echo "Snyk đang quét toàn bộ dự án từ Root để giữ nguyên ngữ cảnh Maven Reactor..."
 
-                        echo "Snyk target services: ${services.join(', ')}"
+                        // Sử dụng --all-projects để quét an toàn cho dự án Multi-module
+                        def exitCode = sh(
+                            script: """
+                                snyk test \
+                                --all-projects \
+                                --package-manager=maven \
+                                --severity-threshold=high \
+                                -d \
+                                --sarif-file-output=snyk-report.sarif \
+                                -- -Drevision=${projectRevision} -U
+                            """,
+                            returnStatus: true
+                        )
 
-                        if (services.isEmpty()) {
-                            echo 'No valid services found for Snyk scan.'
-                            return
-                        }
+                        archiveArtifacts artifacts: 'snyk-report.sarif', allowEmptyArchive: true
 
-                        def failedServices = []
-
-                        services.each { svc ->
-                            if (!fileExists("${svc}/pom.xml")) {
-                                echo "Skip ${svc}: pom.xml not found."
-                            } else {
-                            def reportFile = "snyk-${svc}.sarif"
-                            def exitCode = sh(
-                                script: """
-                                    snyk test \
-                                    --file=${svc}/pom.xml \
-                                    --package-manager=maven \
-                                    --severity-threshold=high \
-                                    -d \
-                                    --sarif-file-output=${reportFile} \
-                                    -- -Drevision=${projectRevision} -U
-                                """,
-                                returnStatus: true
-                            )
-
-                            archiveArtifacts artifacts: reportFile, allowEmptyArchive: true
-
-                            if (exitCode == 1) {
-                                failedServices.add(svc)
-                            } else if (exitCode > 1) {
-                                error("Snyk execution failed for ${svc}")
-                            }
-                            }
-                        }
-
-                        if (!failedServices.isEmpty()) {
-                            error("Snyk found vulnerabilities in: ${failedServices.join(', ')}")
+                        if (exitCode == 1) {
+                            error("Snyk phát hiện lỗ hổng bảo mật! Hãy kiểm tra file báo cáo snyk-report.sarif.")
+                        } else if (exitCode > 1) {
+                            error("Snyk gặp lỗi hệ thống trong quá trình thực thi.")
                         }
                     }
                 }
             }
         }
-
         // ====================================================================
         // STAGE 7: Build – package JARs reusing compiled classes from Test
         // ====================================================================
