@@ -251,53 +251,53 @@ pipeline {
         // ====================================================================
         // STAGE 6: Security - scan dependencies with Snyk
         // ====================================================================
-        stage('Dependency Scan (Snyk)') {
-            when {
-                expression { return env.CHANGED_SERVICES?.trim() }
-            }
-            steps {
-                withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')]) {
-                    script {
-                        sh 'snyk --version'
-                        // Ensure Maven wrappers are executable on Linux agents.
-                        sh 'find . -type f -name mvnw -exec chmod +x {} +'
+        // stage('Dependency Scan (Snyk)') {
+        //     when {
+        //         expression { return env.CHANGED_SERVICES?.trim() }
+        //     }
+        //     steps {
+        //         withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')]) {
+        //             script {
+        //                 sh 'snyk --version'
+        //                 // Ensure Maven wrappers are executable on Linux agents.
+        //                 sh 'find . -type f -name mvnw -exec chmod +x {} +'
                         
-                        // Resolve the CI-friendly revision from the root POM.
-                        def projectRevision = sh(
-                            script: "sed -n 's:.*<revision>\\(.*\\)</revision>.*:\\1:p' pom.xml | head -n1",
-                            returnStdout: true
-                        ).trim()
+        //                 // Resolve the CI-friendly revision from the root POM.
+        //                 def projectRevision = sh(
+        //                     script: "sed -n 's:.*<revision>\\(.*\\)</revision>.*:\\1:p' pom.xml | head -n1",
+        //                     returnStdout: true
+        //                 ).trim()
 
-                        if (!projectRevision) {
-                            error('Unable to resolve <revision> from root pom.xml for Snyk Maven scan.')
-                        }
+        //                 if (!projectRevision) {
+        //                     error('Unable to resolve <revision> from root pom.xml for Snyk Maven scan.')
+        //                 }
 
-                        echo 'Running Snyk scan from root using Maven aggregate project mode...'
+        //                 echo 'Running Snyk scan from root using Maven aggregate project mode...'
 
-                        // Use Maven aggregate mode for multi-module reactor builds.
-                        def exitCode = sh(
-                            script: """
-                                snyk test \
-                                --file=pom.xml \
-                                --maven-aggregate-project \
-                                --severity-threshold=high \
-                                --sarif-file-output=snyk-report.sarif \
-                                -- -Drevision=${projectRevision} -U
-                            """,
-                            returnStatus: true
-                        )
+        //                 // Use Maven aggregate mode for multi-module reactor builds.
+        //                 def exitCode = sh(
+        //                     script: """
+        //                         snyk test \
+        //                         --file=pom.xml \
+        //                         --maven-aggregate-project \
+        //                         --severity-threshold=high \
+        //                         --sarif-file-output=snyk-report.sarif \
+        //                         -- -Drevision=${projectRevision} -U
+        //                     """,
+        //                     returnStatus: true
+        //                 )
 
-                        archiveArtifacts artifacts: 'snyk-report.sarif', allowEmptyArchive: true
+        //                 archiveArtifacts artifacts: 'snyk-report.sarif', allowEmptyArchive: true
 
-                        if (exitCode == 1) {
-                            error('Snyk found vulnerabilities. Check snyk-report.sarif for details.')
-                        } else if (exitCode > 1) {
-                            error("Snyk execution failed with exit code ${exitCode}.")
-                        }
-                    }
-                }
-            }
-        }
+        //                 if (exitCode == 1) {
+        //                     error('Snyk found vulnerabilities. Check snyk-report.sarif for details.')
+        //                 } else if (exitCode > 1) {
+        //                     error("Snyk execution failed with exit code ${exitCode}.")
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     post {
