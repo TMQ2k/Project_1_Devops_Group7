@@ -397,10 +397,10 @@ pipeline {
                 withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK_TOKEN')]) {
                     script {
                         sh 'snyk --version'
-                        // Fix quyền cho Maven Wrapper
+                        // Ensure Maven wrappers are executable on Linux agents.
                         sh 'find . -type f -name mvnw -exec chmod +x {} +'
                         
-                        // Lấy biến projectRevision từ file pom.xml gốc
+                        // Resolve the CI-friendly revision from the root POM.
                         def projectRevision = sh(
                             script: "sed -n 's:.*<revision>\\(.*\\)</revision>.*:\\1:p' pom.xml | head -n1",
                             returnStdout: true
@@ -410,16 +410,15 @@ pipeline {
                             error('Unable to resolve <revision> from root pom.xml for Snyk Maven scan.')
                         }
 
-                        echo "Snyk đang quét toàn bộ dự án từ Root để giữ nguyên ngữ cảnh Maven Reactor..."
+                        echo 'Running Snyk scan from root using Maven aggregate project mode...'
 
-                        // Sử dụng --all-projects để quét an toàn cho dự án Multi-module
+                        // Use Maven aggregate mode for multi-module reactor builds.
                         def exitCode = sh(
                             script: """
                                 snyk test \
-                                --all-projects \
-                                --package-manager=maven \
+                                --file=pom.xml \
+                                --maven-aggregate-project \
                                 --severity-threshold=high \
-                                -d \
                                 --sarif-file-output=snyk-report.sarif \
                                 -- -Drevision=${projectRevision} -U
                             """,
@@ -429,9 +428,9 @@ pipeline {
                         archiveArtifacts artifacts: 'snyk-report.sarif', allowEmptyArchive: true
 
                         if (exitCode == 1) {
-                            error("Snyk phát hiện lỗ hổng bảo mật! Hãy kiểm tra file báo cáo snyk-report.sarif.")
+                            error('Snyk found vulnerabilities. Check snyk-report.sarif for details.')
                         } else if (exitCode > 1) {
-                            error("Snyk gặp lỗi hệ thống trong quá trình thực thi.")
+                            error("Snyk execution failed with exit code ${exitCode}.")
                         }
                     }
                 }
