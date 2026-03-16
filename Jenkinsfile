@@ -115,14 +115,27 @@ pipeline {
         }
 
         // ====================================================================
-        // STAGE 3: Test – compile + run tests + generate coverage
+        // STAGE 3: Build – compile classes for changed services (skip tests)
+        // ====================================================================
+
+        stage('Build') {
+            when {
+                expression { return env.CHANGED_SERVICES?.trim() }
+            }
+            steps {
+                sh "mvn -f pom.xml clean install -pl ${env.CHANGED_SERVICES} -am -DskipTests"
+            }
+        }
+
+        // ====================================================================
+        // STAGE 4: Test – compile + run tests + generate coverage
         // ====================================================================
         stage('Test') {
             when {
                 expression { return env.CHANGED_SERVICES?.trim() }
             }
             steps {
-                sh "mvn -f pom.xml clean verify jacoco:report -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
+                sh "mvn -f pom.xml test jacoco:report -pl ${env.CHANGED_SERVICES} -am -Dmaven.test.failIfNoSpecifiedTests=false"
             }
             post {
                 always {
@@ -156,7 +169,7 @@ pipeline {
             }
         }
         // ====================================================================
-        // STAGE 4: Code quality scan with SonarCloud
+        // STAGE 5: Code quality scan with SonarCloud
         // ====================================================================
         stage('Code Quality Scan (SonarCloud)') {
             when {
@@ -222,7 +235,7 @@ pipeline {
         }
 
         // ====================================================================
-        // STAGE 5: Security - scan dependencies with Snyk
+        // STAGE 6: Security - scan dependencies with Snyk
         // ====================================================================
         stage('Dependency Scan (Snyk)') {
             when {
@@ -258,6 +271,7 @@ pipeline {
                                     --file=${svc}/pom.xml \
                                     --package-manager=maven \
                                     --severity-threshold=high \
+                                    -d \
                                     --sarif-file-output=${reportFile}
                                 """,
                                 returnStatus: true
@@ -282,16 +296,17 @@ pipeline {
         }
 
         // ====================================================================
-        // STAGE 6: Build – package JARs reusing compiled classes from Test
+        // STAGE 7: Build – package JARs reusing compiled classes from Test
         // ====================================================================
-        stage('Build') {
-            when {
-                expression { return env.CHANGED_SERVICES?.trim() }
-            }
-            steps {
-                sh "mvn -f pom.xml package -pl ${env.CHANGED_SERVICES} -am -DskipTests"
-            }
-        }
+        // stage('Build') {
+        //     when {
+        //         expression { return env.CHANGED_SERVICES?.trim() }
+        //     }
+        //     steps {
+        //         sh "mvn -f pom.xml package -pl ${env.CHANGED_SERVICES} -am -DskipTests"
+        //     }
+        // }
+        
     }
 
     post {
